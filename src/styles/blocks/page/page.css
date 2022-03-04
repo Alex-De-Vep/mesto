@@ -1,0 +1,19 @@
+.page {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+
+    font-family: var(--font-stack, Arial);
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

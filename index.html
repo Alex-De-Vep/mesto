@@ -7,8 +7,59 @@
     <link rel="stylesheet" href="src/styles/pages/index.css">
 </head>
 <body class="page">
-    <header class="header"></header>
-    <main></main>
+    <header class="header">
+        <div class="header__container">
+            <img class="header__logo" src="./src/svg/logo.svg" alt="Логотип mesto">
+        </div>
+    </header>
+    <main class="content">
+        <section class="profile">
+            <div class="container">
+                <div class="profile__content">
+                    <picture>
+                        <source srcset="src/images/profile/Jak-Iv.avif, src/images/profile/Jak-Iv@2x.avif 2x" type="image/avif">
+                        <source srcset="src/images/profile/Jak-Iv.webp, src/images/profile/Jak-Iv@2x.webp 2x" type="image/webp">
+                        <source srcset="src/images/profile/Jak-Iv@2x.jpg 2x" type="image/jpg">
+                        <img class="profile__image" src="src/images/profile/Jak-Iv.jpg" alt="Аватарка профиля">
+                    </picture>
+                    <div class="profile__info">
+                        <div class="profile__title-wrapper">
+                            <h1 class="profile__title">Жак-Ив Кусто</h1>
+                            <button class="profile__button-edit">
+                                <img class="profile__button-icon" src="./src/svg/edit.svg" alt="Иконка редактирования профиля">
+                            </button>
+                        </div>
+                        <p class="profile__text">Исследователь океана</p>
+                    </div>
+                    <button class="profile__button">
+                        <span class="profile__button-line"></span>
+                        <span class="profile__button-line profile__button-line_vertical"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="trips">
+            <div class="container">
+                <ul class="trips__list">
+                    <li class="trips__item">
+                        <article class="card">
+                            <picture>
+                                <source srcset="src/images/trips/dombai.avif, src/images/trips/dombai@2x.avif 2x" type="image/avif">
+                                <source srcset="src/images/trips/dombai.webp, src/images/trips/dombai@2x.webp 2x" type="image/webp">
+                                <source srcset="src/images/trips/dombai@2x.jpg 2x" type="image/jpg">
+                                <img class="card__image" src="src/images/trips/dombai.jpg" alt="Аватарка профиля">
+                            </picture>
+                            <div class="card__info">
+                                <p class="card__text"></p>
+                                
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
     <footer class="footer"></footer>
 </body>
 </html>

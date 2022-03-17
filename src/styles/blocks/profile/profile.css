@@ -1,0 +1,85 @@
+.profile__content {
+    display: flex;
+    align-items: center;
+}
+
+.profile__image {
+    display: flex;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profile__info {
+    margin-left: 30px;
+}
+
+.profile__title {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1;
+}
+
+.profile__title-wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+.profile__button {
+    position: relative;
+    width: 150px;
+    height: 50px;
+    margin-left: auto;
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+}
+
+.profile__button:hover,
+.profile__button:focus {
+    opacity: 0.6;
+}
+
+.profile__button-line {
+    position: absolute;
+    left: calc(50% - 11px);
+    width: 22px;
+    height: 2px;
+    background-color: #ffffff;
+}
+
+.profile__button-line_vertical {
+    transform: rotate(90deg);
+}
+
+.profile__button-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 18px;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+}
+
+.profile__button-edit:hover,
+.profile__button-edit:focus {
+    opacity: 0.6;
+}
+
+.profile__button-icon {
+    width: 10px;
+    height: 10px;
+}
+
+.profile__text {
+    margin-top: 18px;
+    color: #ffffff;
+    font-size: 18px;
+}

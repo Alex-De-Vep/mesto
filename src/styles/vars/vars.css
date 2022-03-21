@@ -1,0 +1,8 @@
+:root {
+    /* Colors */
+    --main: #000000;
+    --gray: #545454;
+
+    /* Fonts */
+    --font-stack: "Inter", arial, sans-serif;
+}

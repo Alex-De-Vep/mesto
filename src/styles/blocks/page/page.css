@@ -1,0 +1,18 @@
+.page {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+
+    font-family: var(--font-stack, Arial);
+    line-height: 0;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}

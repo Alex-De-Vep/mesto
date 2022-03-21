@@ -3,15 +3,3 @@
 
     padding-bottom: 40px;
 }
-
-.header__container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 45px 10px 40px;
-    border-bottom: 1px solid var(--gray);
-}
-
-.header__logo {
-    width: 142px;
-    height: 34px;
-}

@@ -1,0 +1,23 @@
+.trips__list {
+    display: grid;
+    grid-gap: 16px 20px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 50px;
+}
+
+@media (max-width: 800px) {
+    .trips__list {
+        display: grid;
+        grid-gap: 16px 20px;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 440px) {
+    .trips__list {
+        grid-gap: 20px;
+        grid-template-columns: 1fr;
+        margin-top: 36px;
+    }
+}

@@ -1,0 +1,5 @@
+.profile__title-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 42px;
+    align-items: center;
+}

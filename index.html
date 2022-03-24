@@ -4,36 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mesto</title>
-    <link rel="stylesheet" href="src/styles/pages/index.css">
+    <link rel="stylesheet" href="pages/index.css">
 </head>
 <body class="page">
     <header class="header">
-        <div class="header__container">
-            <img class="header__logo" src="./src/svg/logo.svg" alt="Логотип mesto">
-        </div>
+        <img class="header__logo" src="images/logo.svg" alt="Логотип mesto">
     </header>
     <main class="content">
         <section class="profile">
             <div class="container">
                 <div class="profile__content">
                     <picture>
-                        <source srcset="src/images/profile/Jak-Iv.avif, src/images/profile/Jak-Iv@2x.avif 2x" type="image/avif">
-                        <source srcset="src/images/profile/Jak-Iv.webp, src/images/profile/Jak-Iv@2x.webp 2x" type="image/webp">
-                        <source srcset="src/images/profile/Jak-Iv@2x.jpg 2x" type="image/jpg">
-                        <img class="profile__image" src="src/images/profile/Jak-Iv.jpg" alt="Аватарка профиля">
+                        <source srcset="images/profile/Jak-Iv.avif, images/profile/Jak-Iv@2x.avif 2x" type="image/avif">
+                        <source srcset="images/profile/Jak-Iv.webp, images/profile/Jak-Iv@2x.webp 2x" type="image/webp">
+                        <source srcset="images/profile/Jak-Iv@2x.jpg 2x" type="image/jpg">
+                        <img class="profile__image" src="images/profile/Jak-Iv.jpg" alt="Аватарка профиля">
                     </picture>
                     <div class="profile__info">
                         <div class="profile__title-wrapper">
                             <h1 class="profile__title">Жак-Ив Кусто</h1>
-                            <button class="profile__button-edit" data-open-popup>
-                                <img class="profile__button-icon" src="./src/svg/edit.svg" alt="Иконка редактирования профиля">
+                            <button class="profile__button-edit" type="button" data-open-popup>
+                                <img class="profile__button-icon" src="images/edit.svg" alt="Иконка редактирования профиля">
                             </button>
                         </div>
                         <p class="profile__text">Исследователь океана</p>
                     </div>
-                    <button class="profile__button">
-                        <span class="profile__button-line"></span>
-                        <span class="profile__button-line profile__button-line_vertical"></span>
+                    <button class="profile__button" type="button">
+                        <img class="profile__button-icon profile__button-icon_size_max" src="images/plus.svg" alt="Иконка графического символа операции сложения">
                     </button>
                 </div>
             </div>
@@ -44,55 +41,55 @@
                 <ul class="trips__list">
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/karachaevsk.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/karachaevsk.jpg" alt="Изображение Карачаевска">
                             <div class="card__info">
-                                <p class="card__text">Карачаевск</p>
-                                <button class="card__button card__button_active"></button>
+                                <h3 class="card__text">Карачаевск</h3>
+                                <button class="card__button card__button_active" type="button"></button>
                             </div>
                         </article>
                     </li>
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/dombai.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/dombai.jpg" alt="Изображение Горы Эльбрус">
                             <div class="card__info">
-                                <p class="card__text">Гора Эльбрус</p>
-                                <button class="card__button"></button>
+                                <h3 class="card__text">Гора Эльбрус</h3>
+                                <button class="card__button" type="button"></button>
                             </div>
                         </article>
                     </li>
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/elbrus.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/elbrus.jpg" alt="Изображение Домбай">
                             <div class="card__info">
-                                <p class="card__text">Домбай</p>
-                                <button class="card__button"></button>
+                                <h3 class="card__text">Домбай</h3>
+                                <button class="card__button" type="button"></button>
                             </div>
                         </article>
                     </li>
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/dombai.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/dombai.jpg" alt="Изображение Горы Эльбрус">
                             <div class="card__info">
-                                <p class="card__text">Гора Эльбрус</p>
-                                <button class="card__button"></button>
+                                <h3 class="card__text">Гора Эльбрус</h3>
+                                <button class="card__button" type="button"></button>
                             </div>
                         </article>
                     </li>
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/elbrus.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/elbrus.jpg" alt="Изображение Домбай">
                             <div class="card__info">
-                                <p class="card__text">Домбай</p>
-                                <button class="card__button"></button>
+                                <h3 class="card__text">Домбай</h3>
+                                <button class="card__button" type="button"></button>
                             </div>
                         </article>
                     </li>
                     <li class="trips__item">
                         <article class="card">
-                            <img class="card__image" src="src/images/trips/karachaevsk.jpg" alt="Аватарка профиля">
+                            <img class="card__image" src="images/trips/karachaevsk.jpg" alt="Изображение Карачаево-Черкессии">
                             <div class="card__info">
-                                <p class="card__text">Карачаево-Черкессия</p>
-                                <button class="card__button"></button>
+                                <h3 class="card__text">Карачаево-Черкессия</h3>
+                                <button class="card__button" type="button"></button>
                             </div>
                         </article>
                     </li>
@@ -101,23 +98,21 @@
         </section>
     </main>
     <footer class="footer">
-        <div class="footer__container">
-            <p class="footer__copyright">
-                © 2020 Mesto Russia
-            </p>
-        </div>
+        <p class="footer__copyright">
+            © 2020 Mesto Russia
+        </p>
     </footer>
     <div class="popup">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
             <form class="popup__form">
-                <input type="text" class="popup__input" data-name aria-label="Введите Имя">
-                <input type="text" class="popup__input" data-job aria-label="Введите статус">
+                <input type="text" class="popup__input" name="name" data-name aria-label="Введите Имя">
+                <input type="text" class="popup__input" name="job" data-job aria-label="Введите статус">
                 <button type="submit" class="popup__button">Сохранить</button>
             </form>
         </div>
     </div>
-    <script src="src/modules/main.js" type="text/javascript"></script>
+    <script src="scripts/index.js" type="text/javascript"></script>
 </body>
 </html>

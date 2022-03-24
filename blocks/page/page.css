@@ -1,0 +1,16 @@
+.page {
+    min-height: 100vh;
+
+    font-family: var(--font-stack, Arial);
+    line-height: 0;
+
+    background-color: var(--main);
+}
+
+/**,*/
+/**::before,*/
+/**::after {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box;*/
+/*}*/

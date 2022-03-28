@@ -1,7 +1,4 @@
 .profile__button-edit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 24px;
     height: 24px;
     margin-left: 18px;
@@ -9,9 +6,21 @@
     border: 1px solid #ffffff;
     cursor: pointer;
     transition: opacity 0.4s ease;
+    background-image: url("../../../images/edit.svg");
+    background-position: center;
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
 }
 
 .profile__button-edit:hover,
 .profile__button-edit:focus {
     opacity: 0.6;
+}
+
+@media (max-width: 440px) {
+    .profile__button-edit {
+        width: 18px;
+        height: 18px;
+        background-size: 8px 8px;
+    }
 }

@@ -2,6 +2,7 @@
     max-width: 920px;
     margin: 0 auto;
     padding: 60px 20px;
+    box-sizing: border-box;
 }
 
 @media (max-width: 440px) {

@@ -6,6 +6,10 @@
     border: 2px solid #ffffff;
     cursor: pointer;
     transition: opacity 0.4s ease;
+    background-image: url("../../../images/plus.svg");
+    background-position: center;
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
 }
 
 .profile__button:hover,
@@ -22,5 +26,6 @@
 @media (max-width: 440px) {
     .profile__button {
         width: 100%;
+        background-size: 16px 16px;
     }
 }

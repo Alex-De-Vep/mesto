@@ -1,6 +1,5 @@
 function initPopup({selector, profile = false, formSelector = '', buttonSelector, closePopup = () => {}, openPopup = () => {}}) {
     const popup = document.querySelector(selector);
-    popup.classList.add("init");
 
     const getProfileForm = (profileForm) => {
         let nameInput = profileForm.querySelector("[data-name]");

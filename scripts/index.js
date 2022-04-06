@@ -126,9 +126,11 @@ const getValueTripCard = ({target}) => {
     const cardTitle = card.querySelector(".card__text");
 
     const popup = document.querySelector("#image-popup");
-    const popupImage = popup.querySelector(".popup__image");
+    const popupImage = createElement("img", "popup__image");
     popupImage.src = cardImage.src;
     popupImage.alt = `Полное изображение ${name}`;
+    const container = popup.querySelector(".popup__container-image");
+    container.prepend(popupImage);
     const popupTitle = popup.querySelector(".popup__text");
     popupTitle.textContent = cardTitle.textContent;
 };

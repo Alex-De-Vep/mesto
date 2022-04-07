@@ -50,7 +50,7 @@
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
-            <form class="popup__form" id="profile-form">
+            <form class="popup__form" name="profile-form">
                 <input type="text" class="popup__input" name="name" data-name aria-label="Введите Имя">
                 <input type="text" class="popup__input" name="job" data-job aria-label="Введите статус">
                 <button type="submit" class="popup__button">Сохранить</button>
@@ -62,7 +62,7 @@
         <div class="popup__container">
             <h2 class="popup__title">Новое место</h2>
             <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
-            <form class="popup__form" id="trip-form">
+            <form class="popup__form" name="trip-form">
                 <input type="text" class="popup__input" name="title" placeholder="Название" data-title aria-label="Введите название">
                 <input type="text" class="popup__input" name="image-link" placeholder="Ссылка на картинку" data-link aria-label="Введите ссылку на картинку">
                 <button type="submit" class="popup__button">Создать</button>
@@ -73,9 +73,29 @@
     <div class="popup popup_image" id="image-popup">
         <div class="popup__container-image">
             <button class="popup__close popup__close_mobile" type="button" aria-label="Закрыть попап" data-close-popup></button>
+            <img class="popup__image" src="undefined" alt="undefined">
             <p class="popup__text"></p>
         </div>
     </div>
+
+    <template id="card-template">
+        <li class="trips__item">
+            <article class="card">
+                <button class="card__image-button">
+                    <img
+                            class="card__image"
+                            src=""
+                            alt=""
+                    >
+                </button>
+                <div class="card__info">
+                    <h3 class="card__text"></h3>
+                    <button class="card__button"></button>
+                </div>
+                <button class="card__trash"></button>
+            </article>
+        </li>
+    </template>
 
     <script src="scripts/index.js" type="text/javascript"></script>
 </body>

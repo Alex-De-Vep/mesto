@@ -1,81 +1,89 @@
-function initPopup({selector, profile = false, formSelector = '', buttonSelector, closePopup = () => {}, openPopup = () => {}}) {
-    const popup = document.querySelector(selector);
-
-    const getProfileForm = (profileForm) => {
-        let nameInput = profileForm.querySelector("[data-name]");
-        let jobInput = profileForm.querySelector("[data-job]");
-        const profileName = document.querySelector(".profile__title");
-        const profileText = document.querySelector(".profile__text");
-
-        return {profileForm, nameInput, jobInput, profileName, profileText}
-    }
-
-    let profileForm;
-    if (profile) {
-        profileForm = getProfileForm(popup.querySelector(formSelector));
-    }
-
-    const setValueProfile = ({nameInput, jobInput, profileName, profileText}) => {
-        nameInput.value = profileName.textContent;
-        jobInput.value = profileText.textContent;
-    }
-
-    const togglePopup = () => {
-        popup.classList.toggle("popup_opened");
-
-        if (popup.classList.contains('popup_opened')) {
-            openPopup();
-        }
-    }
-
-    const openButtons = document.querySelectorAll(buttonSelector);
-    openButtons.forEach((button) => {
-        console.log(button);
-        button.addEventListener("click", () => {
-            togglePopup();
-
-            if (profile) {
-                setValueProfile(profileForm);
-            }
-        });
-    });
-
-    const closeButton = popup.querySelector("[data-close-popup]")
-    closeButton.addEventListener("click", togglePopup);
-
-    popup.addEventListener("click", (event) => {
-        const {target, currentTarget} = event;
-        if (target === currentTarget) {
-            togglePopup();
-        }
-    })
-
-    function formSubmitHandler(evt) {
-        evt.preventDefault();
-
-        popup.classList.remove("popup_opened");
-    }
+const profilePopup = document.querySelector("#profile-popup");
+let nameInput = profilePopup.querySelector("[data-name]");
+let jobInput = profilePopup.querySelector("[data-job]");
+const profileName = document.querySelector(".profile__title");
+const profileText = document.querySelector(".profile__text");
 
 
-    if (!formSelector) {
-        return;
-    }
-    const form = popup.querySelector(formSelector);
+//Общие для всех попапов
 
-    form.addEventListener('submit', (event) => {
-        formSubmitHandler(event);
-
-        closePopup();
-
-        if (profile) {
-            const {profileName, profileText, nameInput, jobInput} = profileForm;
-            profileName.textContent = nameInput.value;
-            profileText.textContent = jobInput.value;
-        }
-
-        form.reset();
-    });
+const togglePopup = (popup) => {
+    popup.classList.toggle("popup_opened");
 }
+
+const closeButtons = document.querySelectorAll("[data-close-popup]")
+closeButtons.forEach((button) => {
+    const popup = button.closest(".popup");
+    button.addEventListener("click", () => togglePopup(popup));
+})
+
+//Попап редактирования профиля
+
+const openProfilePopupButton = document.querySelector("[data-popup-profile]");
+openProfilePopupButton.addEventListener("click", () => {
+    togglePopup(profilePopup);
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileText.textContent;
+})
+
+function formSubmitHandler(evt) {
+    evt.preventDefault();
+
+    profileName.textContent = nameInput.value;
+    profileText.textContent = jobInput.value;
+
+    togglePopup(profilePopup);
+}
+const profileForm = profilePopup.querySelector(".popup__form");
+profileForm.addEventListener('submit', (event) => formSubmitHandler(event));
+
+// popup.addEventListener("click", (event) => {
+//     const {target, currentTarget} = event;
+//     if (target === currentTarget) {
+//         togglePopup();
+//     }
+// })
+
+//Попап добавления карточки
+
+const tripPopup = document.querySelector("#trip-popup");
+
+const openTripPopupButton = document.querySelector("[data-popup-trip]");
+openTripPopupButton.addEventListener("click", () => {
+    togglePopup(tripPopup);
+})
+
+const addTripCard = (form) => {
+    const titleInput = form.querySelector("[data-title]");
+    const linkInput = form.querySelector("[data-link]");
+    const card = createCard({name: titleInput.value, link: linkInput.value});
+
+    const listCards = document.querySelector(".trips__list");
+    listCards.prepend(card);
+};
+
+const tripForm = tripPopup.querySelector(".popup__form");
+function tripFormSubmitHandler(evt) {
+    evt.preventDefault();
+
+    addTripCard(tripForm);
+    togglePopup(tripPopup);
+    tripForm.reset();
+}
+tripForm.addEventListener('submit', (event) => tripFormSubmitHandler(event));
+
+//Попап открытия карточки
+
+const imagePopup = document.querySelector("#image-popup");
+const setValueImagePopup = (name, link) => {
+    const image = imagePopup.querySelector(".popup__image");
+    image.src = link;
+    image.alt = `Полное изображение ${name}`;
+    const title = imagePopup.querySelector(".popup__text");
+    title.textContent = name;
+}
+
+//Добавление карточек из массива
 
 const initialCards = [
     {
@@ -104,13 +112,6 @@ const initialCards = [
     }
 ];
 
-const createElement = (element, className) => {
-    const htmlElement = document.createElement(element);
-    htmlElement.classList.add(className);
-
-    return htmlElement;
-}
-
 const toggleLike = ({target}) => {
     target.classList.toggle("card__button_active");
 }
@@ -120,75 +121,33 @@ const removeCard = ({target}) => {
     card.remove();
 }
 
-const getValueTripCard = ({target}) => {
-    const card = target.closest(".card");
-    const cardImage = card.querySelector(".card__image");
-    const cardTitle = card.querySelector(".card__text");
-
-    const popup = document.querySelector("#image-popup");
-    const popupImage = createElement("img", "popup__image");
-    popupImage.src = cardImage.src;
-    popupImage.alt = `Полное изображение ${name}`;
-    const container = popup.querySelector(".popup__container-image");
-    container.prepend(popupImage);
-    const popupTitle = popup.querySelector(".popup__text");
-    popupTitle.textContent = cardTitle.textContent;
-};
-
 const createCard = ({name, link}) => {
-    const imageButton = createElement("button", "card__image-button");
-    const image = createElement("img", "card__image");
+    const cardTemplate = document.querySelector('#card-template').content;
+    const card = cardTemplate.querySelector('.trips__item').cloneNode(true)
+
+    const image = card.querySelector(".card__image");
     image.src = link;
-    image.alt = `Изображение ${name}`;
-    imageButton.append(image);
-    imageButton.addEventListener("click", (event) => getValueTripCard(event));
+    image.alt = name
+    const text = card.querySelector(".card__text");
+    text.textContent = name;
 
-    const trash = createElement("button", "card__trash");
-    trash.addEventListener("click", (event) => removeCard(event));
+    const imageButton = card.querySelector(".card__image-button");
+    imageButton.addEventListener("click", () => {
+        togglePopup(imagePopup);
+        setValueImagePopup(name, link);
+    });
 
-    const textWrapper = createElement("div", "card__info");
-    const text = createElement("h3", "card__text");
-    text.innerText = name;
+    const cardTrash = card.querySelector(".card__trash");
+    cardTrash.addEventListener("click", removeCard);
 
-    const button = createElement("button", "card__button");
-    button.addEventListener("click", (event) => toggleLike(event));
-    textWrapper.append(text, button);
+    const button = card.querySelector(".card__button");
+    button.addEventListener("click", toggleLike);
 
-    const article = createElement("article", "card");
-    article.append(imageButton, textWrapper, trash);
-
-    const item = createElement("li", "trips__item");
-    item.append(article);
-    const listCards = document.querySelector(".trips__list");
-    listCards.prepend(item);
+    return card;
 }
 
+const listCards = document.querySelector(".trips__list");
 initialCards.forEach((cardInfo) => {
-    createCard(cardInfo);
-});
-
-const addTripCard = () => {
-    const form = document.querySelector("#trip-form");
-    const titleInput = form.querySelector("[data-title]");
-    const linkInput = form.querySelector("[data-link]");
-    createCard({name: titleInput.value, link: linkInput.value});
-};
-
-initPopup({
-    selector: "#profile-popup",
-    profile: true,
-    formSelector: "#profile-form",
-    buttonSelector: "[data-popup-profile]",
-});
-
-initPopup({
-    selector: "#trip-popup",
-    formSelector: "#trip-form",
-    buttonSelector: "[data-popup-trip]",
-    closePopup: addTripCard,
-});
-
-initPopup({
-    selector: "#image-popup",
-    buttonSelector: ".card__image-button",
+    const card = createCard(cardInfo);
+    listCards.append(card);
 });

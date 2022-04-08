@@ -1,29 +1,32 @@
-const profilePopup = document.querySelector("#profile-popup");
-let nameInput = profilePopup.querySelector("[data-name]");
-let jobInput = profilePopup.querySelector("[data-job]");
-const profileName = document.querySelector(".profile__title");
-const profileText = document.querySelector(".profile__text");
-
-
 //Общие для всех попапов
 
-const togglePopup = (popup) => {
-    popup.classList.toggle("popup_opened");
+const openPopup = (popup) => {
+    popup.classList.add("popup_opened");
+}
+
+const closePopup = (popup) => {
+    popup.classList.remove("popup_opened");
 }
 
 const closeButtons = document.querySelectorAll("[data-close-popup]")
 closeButtons.forEach((button) => {
     const popup = button.closest(".popup");
-    button.addEventListener("click", () => togglePopup(popup));
+    button.addEventListener("click", () => closePopup(popup));
 })
 
 //Попап редактирования профиля
 
+const profilePopup = document.querySelector("#profile-popup");
+const nameInput = profilePopup.querySelector("[data-name]");
+const jobInput = profilePopup.querySelector("[data-job]");
+const profileName = document.querySelector(".profile__title");
+const profileText = document.querySelector(".profile__text");
+
 const openProfilePopupButton = document.querySelector("[data-popup-profile]");
 openProfilePopupButton.addEventListener("click", () => {
-    togglePopup(profilePopup);
     nameInput.value = profileName.textContent;
     jobInput.value = profileText.textContent;
+    openPopup(profilePopup);
 })
 
 function formSubmitHandler(evt) {
@@ -32,7 +35,7 @@ function formSubmitHandler(evt) {
     profileName.textContent = nameInput.value;
     profileText.textContent = jobInput.value;
 
-    togglePopup(profilePopup);
+    closePopup(profilePopup);
 }
 const profileForm = profilePopup.querySelector(".popup__form");
 profileForm.addEventListener('submit', (event) => formSubmitHandler(event));
@@ -46,28 +49,28 @@ profileForm.addEventListener('submit', (event) => formSubmitHandler(event));
 
 //Попап добавления карточки
 
+const listCards = document.querySelector(".trips__list");
 const tripPopup = document.querySelector("#trip-popup");
+const tripForm = tripPopup.querySelector(".popup__form");
+const titleInput = tripForm.querySelector("[data-title]");
+const linkInput = tripForm.querySelector("[data-link]");
 
 const openTripPopupButton = document.querySelector("[data-popup-trip]");
 openTripPopupButton.addEventListener("click", () => {
-    togglePopup(tripPopup);
+    openPopup(tripPopup);
 })
 
-const addTripCard = (form) => {
-    const titleInput = form.querySelector("[data-title]");
-    const linkInput = form.querySelector("[data-link]");
-    const card = createCard({name: titleInput.value, link: linkInput.value});
 
-    const listCards = document.querySelector(".trips__list");
+const addTripCard = () => {
+    const card = createCard({name: titleInput.value, link: linkInput.value});
     listCards.prepend(card);
 };
 
-const tripForm = tripPopup.querySelector(".popup__form");
 function tripFormSubmitHandler(evt) {
     evt.preventDefault();
 
-    addTripCard(tripForm);
-    togglePopup(tripPopup);
+    addTripCard();
+    closePopup(tripPopup);
     tripForm.reset();
 }
 tripForm.addEventListener('submit', (event) => tripFormSubmitHandler(event));
@@ -75,42 +78,15 @@ tripForm.addEventListener('submit', (event) => tripFormSubmitHandler(event));
 //Попап открытия карточки
 
 const imagePopup = document.querySelector("#image-popup");
+const popupImage = imagePopup.querySelector(".popup__image");
 const setValueImagePopup = (name, link) => {
-    const image = imagePopup.querySelector(".popup__image");
-    image.src = link;
-    image.alt = `Полное изображение ${name}`;
+    popupImage.src = link;
+    popupImage.alt = `Полное изображение ${name}`;
     const title = imagePopup.querySelector(".popup__text");
     title.textContent = name;
 }
 
 //Добавление карточек из массива
-
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
 
 const toggleLike = ({target}) => {
     target.classList.toggle("card__button_active");
@@ -121,8 +97,8 @@ const removeCard = ({target}) => {
     card.remove();
 }
 
+const cardTemplate = document.querySelector('#card-template').content;
 const createCard = ({name, link}) => {
-    const cardTemplate = document.querySelector('#card-template').content;
     const card = cardTemplate.querySelector('.trips__item').cloneNode(true)
 
     const image = card.querySelector(".card__image");
@@ -133,8 +109,8 @@ const createCard = ({name, link}) => {
 
     const imageButton = card.querySelector(".card__image-button");
     imageButton.addEventListener("click", () => {
-        togglePopup(imagePopup);
         setValueImagePopup(name, link);
+        openPopup(imagePopup);
     });
 
     const cardTrash = card.querySelector(".card__trash");
@@ -146,7 +122,6 @@ const createCard = ({name, link}) => {
     return card;
 }
 
-const listCards = document.querySelector(".trips__list");
 initialCards.forEach((cardInfo) => {
     const card = createCard(cardInfo);
     listCards.append(card);

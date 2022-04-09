@@ -6,6 +6,20 @@ const openPopup = (popup) => {
 
 const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
+    document.removeEventListener("keyup", closeByEscape);
+}
+
+const closeByOverlay = ({target, currentTarget}) => {
+    if (target === currentTarget) {
+        closePopup(imagePopup);
+    }
+}
+
+const closeByEscape = (event) => {
+    if (event.key === "Escape") {
+        const openedPopup = document.querySelector(".popup_opened");
+        closePopup(openedPopup);
+    }
 }
 
 const closeButtons = document.querySelectorAll("[data-close-popup]")
@@ -13,14 +27,6 @@ closeButtons.forEach((button) => {
     const popup = button.closest(".popup");
     button.addEventListener("click", () => closePopup(popup));
 })
-
-const keyHandler = (event) => {
-    const openedPopup = document.querySelector(".popup_opened");
-    if (event.key === "Escape") {
-        closePopup(openedPopup);
-        document.removeEventListener("keyup", keyHandler);
-    }
-}
 
 //Попап редактирования профиля
 
@@ -35,10 +41,10 @@ openProfilePopupButton.addEventListener("click", () => {
     nameInput.value = profileName.textContent;
     jobInput.value = profileText.textContent;
     openPopup(profilePopup);
-    document.addEventListener("keyup", keyHandler);
+    document.addEventListener("keyup", closeByEscape);
 })
 
-function formSubmitHandler(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value;
@@ -47,14 +53,8 @@ function formSubmitHandler(evt) {
     closePopup(profilePopup);
 }
 const profileForm = profilePopup.querySelector(".popup__form");
-profileForm.addEventListener('submit', (event) => formSubmitHandler(event));
-
-profilePopup.addEventListener("click", (event) => {
-    const {target, currentTarget} = event;
-    if (target === currentTarget) {
-        closePopup(profilePopup);
-    }
-})
+profileForm.addEventListener('submit', handleProfileFormSubmit);
+profilePopup.addEventListener("click", closeByOverlay);
 
 //Попап добавления карточки
 
@@ -64,17 +64,12 @@ const tripForm = tripPopup.querySelector(".popup__form");
 const titleInput = tripForm.querySelector("[data-title]");
 const linkInput = tripForm.querySelector("[data-link]");
 
-tripPopup.addEventListener("click", (event) => {
-    const {target, currentTarget} = event;
-    if (target === currentTarget) {
-        closePopup(tripPopup);
-    }
-})
+tripPopup.addEventListener("click", closeByOverlay);
 
 const openTripPopupButton = document.querySelector("[data-popup-trip]");
 openTripPopupButton.addEventListener("click", () => {
     openPopup(tripPopup);
-    document.addEventListener("keyup", keyHandler);
+    document.addEventListener("keyup", closeByEscape);
 })
 
 
@@ -83,24 +78,19 @@ const addTripCard = () => {
     listCards.prepend(card);
 };
 
-function tripFormSubmitHandler(evt) {
+function handleTripFormSubmit(evt) {
     evt.preventDefault();
 
     addTripCard();
     closePopup(tripPopup);
     tripForm.reset();
 }
-tripForm.addEventListener('submit', (event) => tripFormSubmitHandler(event));
+tripForm.addEventListener('submit', handleTripFormSubmit);
 
 //Попап открытия карточки
 
 const imagePopup = document.querySelector("#image-popup");
-imagePopup.addEventListener("click", (event) => {
-    const {target, currentTarget} = event;
-    if (target === currentTarget) {
-        closePopup(imagePopup);
-    }
-})
+imagePopup.addEventListener("click", closeByOverlay);
 
 const popupImage = imagePopup.querySelector(".popup__image");
 const setValueImagePopup = (name, link) => {
@@ -135,7 +125,7 @@ const createCard = ({name, link}) => {
     imageButton.addEventListener("click", () => {
         setValueImagePopup(name, link);
         openPopup(imagePopup);
-        document.addEventListener("keyup", keyHandler);
+        document.addEventListener("keyup", closeByEscape);
     });
 
     const cardTrash = card.querySelector(".card__trash");

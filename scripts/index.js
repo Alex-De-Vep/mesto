@@ -14,6 +14,14 @@ closeButtons.forEach((button) => {
     button.addEventListener("click", () => closePopup(popup));
 })
 
+const keyHandler = (event) => {
+    const openedPopup = document.querySelector(".popup_opened");
+    if (event.key === "Escape") {
+        closePopup(openedPopup);
+        document.removeEventListener("keyup", keyHandler);
+    }
+}
+
 //Попап редактирования профиля
 
 const profilePopup = document.querySelector("#profile-popup");
@@ -27,6 +35,7 @@ openProfilePopupButton.addEventListener("click", () => {
     nameInput.value = profileName.textContent;
     jobInput.value = profileText.textContent;
     openPopup(profilePopup);
+    document.addEventListener("keyup", keyHandler);
 })
 
 function formSubmitHandler(evt) {
@@ -40,12 +49,12 @@ function formSubmitHandler(evt) {
 const profileForm = profilePopup.querySelector(".popup__form");
 profileForm.addEventListener('submit', (event) => formSubmitHandler(event));
 
-// popup.addEventListener("click", (event) => {
-//     const {target, currentTarget} = event;
-//     if (target === currentTarget) {
-//         togglePopup();
-//     }
-// })
+profilePopup.addEventListener("click", (event) => {
+    const {target, currentTarget} = event;
+    if (target === currentTarget) {
+        closePopup(profilePopup);
+    }
+})
 
 //Попап добавления карточки
 
@@ -55,9 +64,17 @@ const tripForm = tripPopup.querySelector(".popup__form");
 const titleInput = tripForm.querySelector("[data-title]");
 const linkInput = tripForm.querySelector("[data-link]");
 
+tripPopup.addEventListener("click", (event) => {
+    const {target, currentTarget} = event;
+    if (target === currentTarget) {
+        closePopup(tripPopup);
+    }
+})
+
 const openTripPopupButton = document.querySelector("[data-popup-trip]");
 openTripPopupButton.addEventListener("click", () => {
     openPopup(tripPopup);
+    document.addEventListener("keyup", keyHandler);
 })
 
 
@@ -78,6 +95,13 @@ tripForm.addEventListener('submit', (event) => tripFormSubmitHandler(event));
 //Попап открытия карточки
 
 const imagePopup = document.querySelector("#image-popup");
+imagePopup.addEventListener("click", (event) => {
+    const {target, currentTarget} = event;
+    if (target === currentTarget) {
+        closePopup(imagePopup);
+    }
+})
+
 const popupImage = imagePopup.querySelector(".popup__image");
 const setValueImagePopup = (name, link) => {
     popupImage.src = link;
@@ -111,6 +135,7 @@ const createCard = ({name, link}) => {
     imageButton.addEventListener("click", () => {
         setValueImagePopup(name, link);
         openPopup(imagePopup);
+        document.addEventListener("keyup", keyHandler);
     });
 
     const cardTrash = card.querySelector(".card__trash");

@@ -2,6 +2,8 @@
     /* Colors */
     --main: #000000;
     --gray: #545454;
+    --error: #ff0000;
+    --light-gray: #c4c4c4;
 
     /* Fonts */
     --font-stack: "Inter", arial, sans-serif;

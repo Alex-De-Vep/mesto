@@ -32,6 +32,12 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
     document.removeEventListener("keyup", closeByEscape);
+
+    const submitFormButton = popup.querySelector('.popup__button');
+    if (submitFormButton) {
+        submitFormButton.classList.add('popup__button_disabled');
+        submitFormButton.disabled = true;
+    }
 }
 
 const closeByOverlay = ({target, currentTarget}) => {
@@ -72,8 +78,6 @@ function handleTripFormSubmit(evt) {
     addTripCard();
     closePopup(tripPopup);
     tripForm.reset();
-    submitFormButton.classList.add('popup__button_disabled');
-    submitFormButton.disabled = true;
 }
 
 const toggleLike = ({target}) => {

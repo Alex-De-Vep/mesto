@@ -25,14 +25,6 @@ const cardTemplate = document.querySelector('#card-template').content;
 
 //Функции
 
-const disableFormButton = (popup) => {
-    const submitFormButton = popup.querySelector('.popup__button');
-    if (submitFormButton) {
-        submitFormButton.classList.add('popup__button_disabled');
-        submitFormButton.disabled = true;
-    }
-}
-
 const openPopup = (popup) => {
     popup.classList.add("popup_opened");
 }
@@ -40,7 +32,6 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
     document.removeEventListener("keyup", closeByEscape);
-    disableFormButton(popup);
 }
 
 const closeByOverlay = ({target, currentTarget}) => {
@@ -76,6 +67,8 @@ function handleTripFormSubmit(evt) {
     addTripCard();
     closePopup(tripPopup);
     tripForm.reset();
+    submitFormButton.classList.add('popup__button_disabled');
+    submitFormButton.disabled = true;
 }
 
 const toggleLike = ({target}) => {

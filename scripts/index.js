@@ -32,12 +32,6 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
     popup.classList.remove("popup_opened");
     document.removeEventListener("keyup", closeByEscape);
-
-    const submitFormButton = popup.querySelector('.popup__button');
-    if (submitFormButton) {
-        submitFormButton.classList.add('popup__button_disabled');
-        submitFormButton.disabled = true;
-    }
 }
 
 const closeByOverlay = ({target, currentTarget}) => {
@@ -52,11 +46,6 @@ const closeByEscape = (event) => {
         closePopup(openedPopup);
     }
 }
-
-closeButtons.forEach((button) => {
-    const popup = button.closest(".popup");
-    button.addEventListener("click", () => closePopup(popup));
-})
 
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
@@ -78,6 +67,8 @@ function handleTripFormSubmit(evt) {
     addTripCard();
     closePopup(tripPopup);
     tripForm.reset();
+    submitFormButton.classList.add('popup__button_disabled');
+    submitFormButton.disabled = true;
 }
 
 const toggleLike = ({target}) => {
@@ -123,6 +114,11 @@ const createCard = ({name, link}) => {
 
 
 //Обработчики событий
+
+closeButtons.forEach((button) => {
+    const popup = button.closest(".popup");
+    button.addEventListener("click", () => closePopup(popup));
+})
 
 openProfilePopupButton.addEventListener("click", () => {
     nameInput.value = profileName.textContent;

@@ -27,6 +27,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 
 const openPopup = (popup) => {
     popup.classList.add("popup_opened");
+    document.addEventListener("keyup", closeByEscape);
 }
 
 const closePopup = (popup) => {
@@ -36,7 +37,7 @@ const closePopup = (popup) => {
 
 const closeByOverlay = ({target, currentTarget}) => {
     if (target === currentTarget) {
-        closePopup(imagePopup);
+        closePopup(target);
     }
 }
 
@@ -100,7 +101,6 @@ const createCard = ({name, link}) => {
     imageButton.addEventListener("click", () => {
         setValueImagePopup(name, link);
         openPopup(imagePopup);
-        document.addEventListener("keyup", closeByEscape);
     });
 
     const cardTrash = card.querySelector(".card__trash");
@@ -112,6 +112,11 @@ const createCard = ({name, link}) => {
     return card;
 }
 
+const openProfilePopup = () => {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileText.textContent;
+    openPopup(profilePopup);
+}
 
 //Обработчики событий
 
@@ -120,12 +125,7 @@ closeButtons.forEach((button) => {
     button.addEventListener("click", () => closePopup(popup));
 })
 
-openProfilePopupButton.addEventListener("click", () => {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileText.textContent;
-    openPopup(profilePopup);
-    document.addEventListener("keyup", closeByEscape);
-})
+openProfilePopupButton.addEventListener("click", openProfilePopup);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 profilePopup.addEventListener("click", closeByOverlay);
 
@@ -134,7 +134,6 @@ profilePopup.addEventListener("click", closeByOverlay);
 tripPopup.addEventListener("click", closeByOverlay);
 openTripPopupButton.addEventListener("click", () => {
     openPopup(tripPopup);
-    document.addEventListener("keyup", closeByEscape);
 })
 tripForm.addEventListener('submit', handleTripFormSubmit);
 

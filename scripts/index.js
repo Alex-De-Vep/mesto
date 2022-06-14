@@ -1,3 +1,6 @@
+import {Card} from "./Card/Card.js";
+import {FormValidator} from "./FormValidator/FormValidator.js";
+
 // Объявление переменных
 const profilePopup = document.querySelector("#profile-popup");
 const profileName = document.querySelector(".profile__title");
@@ -19,8 +22,6 @@ const imagePopup = document.querySelector("#image-popup");
 const popupImage = imagePopup.querySelector(".popup__image");
 
 const closeButtons = document.querySelectorAll("[data-close-popup]")
-
-const cardTemplate = document.querySelector('#card-template').content;
 
 
 //Функции
@@ -58,7 +59,16 @@ function handleProfileFormSubmit(evt) {
 }
 
 const addTripCard = () => {
-    const card = createCard({name: titleInput.value, link: linkInput.value});
+    let card = new Card({name: titleInput.value, link: linkInput.value});
+    card = card.createCard();
+    const cardName = titleInput.value;
+    const cardLink = linkInput.value;
+    const imageButton = card.querySelector(".card__image-button");
+    imageButton.addEventListener("click", () => {
+        setValueImagePopup(cardName, cardLink);
+        openPopup(imagePopup);
+    });
+
     listCards.prepend(card);
 };
 
@@ -72,15 +82,6 @@ function handleTripFormSubmit(evt) {
     submitFormButton.disabled = true;
 }
 
-const toggleLike = ({target}) => {
-    target.classList.toggle("card__button_active");
-}
-
-const removeCard = ({target}) => {
-    const card = target.closest(".trips__item");
-    card.remove();
-}
-
 const setValueImagePopup = (name, link) => {
     popupImage.src = link;
     popupImage.alt = `Полное изображение ${name}`;
@@ -88,31 +89,19 @@ const setValueImagePopup = (name, link) => {
     title.textContent = name;
 }
 
-const createCard = ({name, link}) => {
-    const card = cardTemplate.querySelector('.trips__item').cloneNode(true)
+const formProfile = new FormValidator({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+}, '[name="profile-form"]');
 
-    const image = card.querySelector(".card__image");
-    image.src = link;
-    image.alt = name
-    const text = card.querySelector(".card__text");
-    text.textContent = name;
-
-    const imageButton = card.querySelector(".card__image-button");
-    imageButton.addEventListener("click", () => {
-        setValueImagePopup(name, link);
-        openPopup(imagePopup);
-    });
-
-    const cardTrash = card.querySelector(".card__trash");
-    cardTrash.addEventListener("click", removeCard);
-
-    const button = card.querySelector(".card__button");
-    button.addEventListener("click", toggleLike);
-
-    return card;
-}
+formProfile.enableValidation();
 
 const openProfilePopup = () => {
+    formProfile.resetInputsErrors();
     nameInput.value = profileName.textContent;
     jobInput.value = profileText.textContent;
     openPopup(profilePopup);
@@ -129,21 +118,32 @@ openProfilePopupButton.addEventListener("click", openProfilePopup);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 profilePopup.addEventListener("click", closeByOverlay);
 
-
+const formTrip = new FormValidator({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+}, '[name="trip-form"]');
+formTrip.enableValidation();
 
 tripPopup.addEventListener("click", closeByOverlay);
 openTripPopupButton.addEventListener("click", () => {
+    formTrip.resetInputsErrors();
     openPopup(tripPopup);
 })
 tripForm.addEventListener('submit', handleTripFormSubmit);
 
-
-
 imagePopup.addEventListener("click", closeByOverlay);
 
-
-
 initialCards.forEach((cardInfo) => {
-    const card = createCard(cardInfo);
+    let card = new Card(cardInfo);
+    card = card.createCard()
+    const imageButton = card.querySelector(".card__image-button");
+    imageButton.addEventListener("click", () => {
+        setValueImagePopup(cardInfo.name, cardInfo.link);
+        openPopup(imagePopup);
+    });
     listCards.append(card);
 });

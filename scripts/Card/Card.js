@@ -1,12 +1,11 @@
 export class Card {
-    cardTemplate = document.querySelector('#card-template').content.cloneNode(true);
-
     name;
     link;
 
-    constructor(card) {
-        this.name = card.name;
-        this.link = card.link;
+    constructor(selector, data) {
+        this.name = data.name;
+        this.link = data.link;
+        this.cardTemplate = document.querySelector(selector).content.cloneNode(true);
     }
 
     _removeCard = ({target}) => {
@@ -16,6 +15,11 @@ export class Card {
 
     _toggleLike = ({target}) => {
         target.classList.toggle("card__button_active");
+    }
+
+    addClickEventListener = (callBackFn = () => {}) => {
+        const imageButton = this.cardTemplate.querySelector(".card__image-button");
+        imageButton.addEventListener("click", callBackFn);
     }
 
     createCard = () => {

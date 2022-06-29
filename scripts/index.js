@@ -1,3 +1,4 @@
+import {initialCards} from "./DataCards/cards.js";
 import {Card} from "./Card/Card.js";
 import {FormValidator} from "./FormValidator/FormValidator.js";
 
@@ -8,9 +9,9 @@ const profileText = document.querySelector(".profile__text");
 const profileForm = profilePopup.querySelector(".popup__form");
 const nameInput = profileForm.querySelector("[data-name]");
 const jobInput = profileForm.querySelector("[data-job]");
-const openProfilePopupButton = document.querySelector("[data-popup-profile]");
+const profilePopupOpenButton = document.querySelector("[data-popup-profile]");
 
-const listCards = document.querySelector(".trips__list");
+const cardsContainer = document.querySelector(".trips__list");
 const tripPopup = document.querySelector("#trip-popup");
 const tripForm = tripPopup.querySelector(".popup__form");
 const titleInput = tripForm.querySelector("[data-title]");
@@ -58,18 +59,18 @@ function handleProfileFormSubmit(evt) {
     closePopup(profilePopup);
 }
 
-const addTripCard = () => {
-    let card = new Card({name: titleInput.value, link: linkInput.value});
-    card = card.createCard();
-    const cardName = titleInput.value;
-    const cardLink = linkInput.value;
-    const imageButton = card.querySelector(".card__image-button");
-    imageButton.addEventListener("click", () => {
-        setValueImagePopup(cardName, cardLink);
+const getCard = (selector, data) => {
+    const cardExemplar = new Card(selector, data);
+    cardExemplar.addClickEventListener(() => {
+        setValueImagePopup(data.name, data.link);
         openPopup(imagePopup);
     });
+    return cardExemplar.createCard();
+}
 
-    listCards.prepend(card);
+const addTripCard = () => {
+    const card = getCard('#card-template', {name: titleInput.value, link: linkInput.value});
+    cardsContainer.prepend(card);
 };
 
 function handleTripFormSubmit(evt) {
@@ -78,8 +79,6 @@ function handleTripFormSubmit(evt) {
     addTripCard();
     closePopup(tripPopup);
     tripForm.reset();
-    submitFormButton.classList.add('popup__button_disabled');
-    submitFormButton.disabled = true;
 }
 
 const setValueImagePopup = (name, link) => {
@@ -89,19 +88,19 @@ const setValueImagePopup = (name, link) => {
     title.textContent = name;
 }
 
-const formProfile = new FormValidator({
+const profileFormValidation = new FormValidator({
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
-}, '[name="profile-form"]');
-
-formProfile.enableValidation();
+}, profileForm);
+profileFormValidation.enableValidation();
 
 const openProfilePopup = () => {
-    formProfile.resetInputsErrors();
+    profileFormValidation.resetInputsErrors();
+    profileFormValidation.disabledButton();
     nameInput.value = profileName.textContent;
     jobInput.value = profileText.textContent;
     openPopup(profilePopup);
@@ -114,23 +113,24 @@ closeButtons.forEach((button) => {
     button.addEventListener("click", () => closePopup(popup));
 })
 
-openProfilePopupButton.addEventListener("click", openProfilePopup);
+profilePopupOpenButton.addEventListener("click", openProfilePopup);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 profilePopup.addEventListener("click", closeByOverlay);
 
-const formTrip = new FormValidator({
+const tripFormValidation = new FormValidator({
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
-}, '[name="trip-form"]');
-formTrip.enableValidation();
+}, tripForm);
+tripFormValidation.enableValidation();
 
 tripPopup.addEventListener("click", closeByOverlay);
 openTripPopupButton.addEventListener("click", () => {
-    formTrip.resetInputsErrors();
+    tripForm.reset();
+    tripFormValidation.resetInputsErrors();
     openPopup(tripPopup);
 })
 tripForm.addEventListener('submit', handleTripFormSubmit);
@@ -138,12 +138,7 @@ tripForm.addEventListener('submit', handleTripFormSubmit);
 imagePopup.addEventListener("click", closeByOverlay);
 
 initialCards.forEach((cardInfo) => {
-    let card = new Card(cardInfo);
-    card = card.createCard()
+    const card = getCard('#card-template', cardInfo);
     const imageButton = card.querySelector(".card__image-button");
-    imageButton.addEventListener("click", () => {
-        setValueImagePopup(cardInfo.name, cardInfo.link);
-        openPopup(imagePopup);
-    });
-    listCards.append(card);
+    cardsContainer.append(card);
 });

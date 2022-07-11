@@ -50,7 +50,7 @@
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
-            <form class="popup__form" name="profile-form">
+            <form class="popup__form" name="profile-form" novalidate>
                 <input type="text" class="popup__input" name="name" id="name" minlength="2" maxlength="40" required data-name aria-label="Введите Имя">
                 <span class="popup__input-error popup__name-error"></span>
                 <input type="text" class="popup__input" name="job" id="job" minlength="2" maxlength="200" required data-job aria-label="Введите статус">
@@ -64,7 +64,7 @@
         <div class="popup__container">
             <h2 class="popup__title">Новое место</h2>
             <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
-            <form class="popup__form" name="trip-form">
+            <form class="popup__form" name="trip-form" novalidate>
                 <input type="text" class="popup__input" name="title" id="title" minlength="2" maxlength="30" placeholder="Название" data-title aria-label="Введите название" required>
                 <span class="popup__input-error popup__title-error"></span>
                 <input type="url" class="popup__input" name="link" id="link" placeholder="Ссылка на картинку" data-link aria-label="Введите ссылку на картинку" required>

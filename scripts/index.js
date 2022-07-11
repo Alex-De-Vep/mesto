@@ -59,12 +59,13 @@ function handleProfileFormSubmit(evt) {
     closePopup(profilePopup);
 }
 
+const openImagePopup = (data) => {
+    setValueImagePopup(data.name, data.link);
+    openPopup(imagePopup);
+}
+
 const getCard = (selector, data) => {
-    const cardExemplar = new Card(selector, data);
-    cardExemplar.addClickEventListener(() => {
-        setValueImagePopup(data.name, data.link);
-        openPopup(imagePopup);
-    });
+    const cardExemplar = new Card(selector, data, openImagePopup);
     return cardExemplar.createCard();
 }
 
@@ -78,7 +79,6 @@ function handleTripFormSubmit(evt) {
 
     addTripCard();
     closePopup(tripPopup);
-    tripForm.reset();
 }
 
 const setValueImagePopup = (name, link) => {
@@ -130,6 +130,7 @@ tripFormValidation.enableValidation();
 tripPopup.addEventListener("click", closeByOverlay);
 openTripPopupButton.addEventListener("click", () => {
     tripForm.reset();
+    tripFormValidation.disabledButton();
     tripFormValidation.resetInputsErrors();
     openPopup(tripPopup);
 })
@@ -138,7 +139,6 @@ tripForm.addEventListener('submit', handleTripFormSubmit);
 imagePopup.addEventListener("click", closeByOverlay);
 
 initialCards.forEach((cardInfo) => {
-    const card = getCard('#card-template', cardInfo);
-    const imageButton = card.querySelector(".card__image-button");
+    const card = getCard('#card-template', cardInfo, openImagePopup);
     cardsContainer.append(card);
 });

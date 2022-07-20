@@ -2,11 +2,11 @@ export class Card {
     name;
     link;
 
-    constructor(selector, data, openImagePopup) {
+    constructor(selector, data, handleCardClick) {
         this.name = data.name;
         this.link = data.link;
         this.cardTemplate = document.querySelector(selector).content.cloneNode(true);
-        this._openImagePopup = openImagePopup;
+        this._handleCardClick = handleCardClick;
     }
 
     _removeCard = ({target}) => {
@@ -27,7 +27,7 @@ export class Card {
 
         const imageButton = this.cardTemplate.querySelector(".card__image-button");
         imageButton.addEventListener("click", () => {
-            this._openImagePopup(this);
+            this._handleCardClick({name: this.name, link: this.link});
         })
 
         const cardTrash = this.cardTemplate.querySelector(".card__trash");

@@ -1,4 +1,4 @@
-import {Popup} from '../Popup/Popup.js';
+import {Popup} from './Popup.js';
 
 export default class PopupWithForm extends Popup {
     selector;
@@ -23,10 +23,7 @@ export default class PopupWithForm extends Popup {
 
     closePopup = () => {
         this.form.reset();
-        this.elementPopup.classList.remove("popup_opened");
-        document.removeEventListener("keyup", this._closeByEscape);
-        this.elementPopup.addEventListener("click", this._closeByOverlay);
-        this.closeButton.addEventListener("click", this.closePopup);
+        super.closePopup();
     }
 
     setEventListeners = () => {
@@ -36,12 +33,8 @@ export default class PopupWithForm extends Popup {
             const data = this._getInputValues();
             this.submit(data);
 
-            console.log(this.form);
             this.closePopup();
-        }, {once: true});
-
-        this.closeButton.addEventListener("click", this.closePopup);
-        document.addEventListener("keyup", this._closeByEscape);
-        this.elementPopup.addEventListener("click", this._closeByOverlay);
+        });
+        super.setEventListeners();
     }
 }

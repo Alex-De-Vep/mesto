@@ -1,6 +1,6 @@
 export class UserInfo {
     selectorName;
-    selectorDescription;
+    selectorJob;
 
     constructor({selectorName, selectorJob}) {
         this.elemntName = document.querySelector(selectorName);

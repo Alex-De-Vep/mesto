@@ -2,15 +2,28 @@ export class Card {
     name;
     link;
 
-    constructor(selector, data, handleCardClick) {
+    constructor(selector, data, {handleCardClick, handleTrashClick, popupCallbackFn}) {
         this.name = data.name;
         this.link = data.link;
+        this.data = data;
+        this.likes = data.likes ? data.likes.length : 0;
         this.cardTemplate = document.querySelector(selector).content.cloneNode(true);
         this._handleCardClick = handleCardClick;
+        this._handleTrashClick = handleTrashClick;
+        this._popupCallbackFn = popupCallbackFn;
     }
 
     _removeCard = (card) => {
-        card.remove();
+        this._handleTrashClick();
+        this._popupCallbackFn(() => {
+            fetch(`https://mesto.nomoreparties.co/v1/cohortId/cards/${this.data._id}`, {
+                method: "DELETE",
+                headers: {
+                    authorization: '70a5e760-58dc-4dc4-9be2-5d986802ee28',
+                },
+            });
+            card.remove();
+        });
     }
 
     _toggleLike = () => {
@@ -31,12 +44,19 @@ export class Card {
         })
 
         this.cardTrash = itemCard.querySelector(".card__trash");
-        this.cardTrash.addEventListener("click", () => {
-            this._removeCard(itemCard);
-        });
+        const userName = document.querySelector(".profile__title").textContent;
+        if (userName === this.data.owner.name) {
+            this.cardTrash.addEventListener("click", () => {
+                this._removeCard(itemCard);
+            });
+        } else {
+            this.cardTrash.classList.add("card__trash_hidden");
+        }
 
         this.cardLike = itemCard.querySelector(".card__button");
         this.cardLike.addEventListener("click", this._toggleLike);
+        this.likeCountElement = itemCard.querySelector(".card__count-like");
+        this.likeCountElement.textContent = this.likes;
 
         return this.cardTemplate;
     }

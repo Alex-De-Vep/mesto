@@ -22,12 +22,15 @@
 
 @import url("../blocks/card/card.css");
 @import url("../blocks/card/__button/card__button.css");
+@import url("../blocks/card/__button-wrapper/card__button-wrapper.css");
 @import url("../blocks/card/__button/_active/card__button_active.css");
 @import url("../blocks/card/__image-button/card__image-button.css");
 @import url("../blocks/card/__image/card__image.css");
 @import url("../blocks/card/__text/card__text.css");
 @import url("../blocks/card/__info/card__info.css");
 @import url("../blocks/card/__trash/card__trash.css");
+@import url("../blocks/card/__trash/_hidden/card__trash_hidden.css");
+@import url("../blocks/card/__count-like/card__count-like.css");
 
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");

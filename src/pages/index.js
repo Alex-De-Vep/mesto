@@ -39,7 +39,7 @@ profilePopup.setEventListeners();
 const imagePopup = new PopupWithImage("#image-popup");
 imagePopup.setEventListeners();
 
-const initCard = (data) => {
+const renderCard = (data) => {
     const card = new Card('#card-template', data, imagePopup.openPopup);
     const cardElement = card.createCard();
 
@@ -48,14 +48,14 @@ const initCard = (data) => {
 
 const initTripCardList = new Section(
     (data) => {
-        initCard(data);
+        renderCard(data);
     },
     ".trips__list",
 );
 initTripCardList.renderItems(initialCards);
 
 const tripPopup = new PopupWithForm("#trip-popup", (data) => {
-    initCard(data);
+    renderCard(data);
 });
 tripPopup.setEventListeners();
 

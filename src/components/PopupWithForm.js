@@ -2,15 +2,12 @@ import {Popup} from './Popup.js';
 
 export default class PopupWithForm extends Popup {
     selector;
-    callBackFnSubmit;
+    handlerFormSubmit;
 
-    constructor(selector, callBackFnSubmit, {method, endpoint}) {
+    constructor(selector, handlerFormSubmit) {
         super(selector);
-        this.method = method;
-        this.endpoint = endpoint;
-        this.elementPopup = document.querySelector(selector);
         this.form = this.elementPopup.querySelector("form");
-        this.submit = callBackFnSubmit;
+        this.handlerFormSubmit = handlerFormSubmit;
     }
 
     _getInputValues = () => {
@@ -33,16 +30,7 @@ export default class PopupWithForm extends Popup {
             event.preventDefault();
 
             const data = this._getInputValues();
-            fetch(`https://mesto.nomoreparties.co/v1/cohort-45/${this.endpoint}`, {
-                method: `${this.method}`,
-                headers: {
-                    authorization: '70a5e760-58dc-4dc4-9be2-5d986802ee28',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            this.submit(data);
+            this.handlerFormSubmit(data);
             this.closePopup();
         });
         super.setEventListeners();

@@ -16,16 +16,8 @@ export class UserInfo {
         this.image.src = data.avatar;
     }
 
-    setUserInfo = () => {
-        fetch('https://mesto.nomoreparties.co/v1/cohort-45/users/me', {
-            headers: {
-                authorization: '70a5e760-58dc-4dc4-9be2-5d986802ee28'
-            }
-        })
-            .then((res) => {return res.json()})
-            .then((data) => {
-                this.elemntName.textContent = data.name;
-                this.elementJob.textContent = data.about;
-            });
+    setUserInfo = (data) => {
+        this.elemntName.textContent = data.name;
+        this.elementJob.textContent = data.about;
     }
 }

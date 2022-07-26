@@ -5,7 +5,6 @@ export default class RemovePopup extends Popup {
 
     constructor(selector) {
         super(selector);
-        this.elementPopup = document.querySelector(selector);
         this.form = this.elementPopup.querySelector("form");
     }
 
@@ -22,13 +21,5 @@ export default class RemovePopup extends Popup {
         });
 
         super.setEventListeners();
-    }
-
-    closePopup = () => {
-        super.closePopup();
-    }
-
-    openPopup = () => {
-        super.openPopup();
     }
 }

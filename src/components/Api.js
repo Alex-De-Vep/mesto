@@ -1,19 +1,87 @@
-class Api {
-    constructor(options) {
-        // тело конструктора
+export default class Api {
+    baseUrl;
+    headers;
+
+    constructor({baseUrl, headers}) {
+        this.baseUrl = baseUrl;
+        this.authorization = headers.authorization;
     }
 
-    getInitialCards() {
-        // ...
+    updateAvatar(data, method) {
+        return fetch(this.baseUrl, {
+            method,
+            headers: {
+                authorization: this.authorization,
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
     }
 
-    // другие методы работы с API
+    toggleLike(method, cardId) {
+        return fetch(`${this.baseUrl}/${cardId}`, {
+            method,
+            headers: {
+                authorization: this.authorization,
+            },
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
+    }
+
+    getDeleteRequest(cardId) {
+        return fetch(`${this.baseUrl}/${cardId}`, {
+            method: "DELETE",
+            headers: {
+                authorization: this.authorization,
+            },
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
+    }
+
+    getFetchRequestWithBody(data, method) {
+        return fetch(this.baseUrl, {
+            method,
+            headers: {
+                authorization: this.authorization,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
+    }
+
+    getFetchRequest() {
+        return fetch(this.baseUrl, {
+            headers: {
+                authorization: this.authorization,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            });
+    }
 }
-
-const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45',
-    headers: {
-        authorization: 'c56e30dc-2883-4270-a59e-b2f7bae969c6',
-        'Content-Type': 'application/json'
-    }
-});

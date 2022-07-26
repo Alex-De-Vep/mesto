@@ -1,13 +1,11 @@
-import Api from "./Api.js";
-
 export class Card {
-    name;
+    selector;
     data;
     apiCard;
     handleCardClick;
     handleTrashClick;
 
-    constructor(selector, data, apiCard, {handleCardClick, handleTrashClick}) {
+    constructor(selector, data, handleCardClick) {
         this.name = data.name;
         this.link = data.link;
         this.data = data;

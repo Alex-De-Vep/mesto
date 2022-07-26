@@ -128,6 +128,7 @@ const initCard = (data) => {
     removePopup.setCallbackFn(card.removeCard);
     initTripCardList.addItem(cardElement);
 }
+
 const initTripCardList = new Section(
     (data) => {
         initCard(data);

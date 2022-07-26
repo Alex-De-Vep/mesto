@@ -13,9 +13,12 @@
         <section class="profile">
             <div class="container">
                 <div class="profile__content">
-                    <picture>
-                        <img class="profile__image" src="images/profile/Jak-Iv.jpg" alt="Аватарка профиля">
-                    </picture>
+                    <button data-profile-image class="profile__image-button">
+                        <div class="profile__image-edit"></div>
+                        <picture>
+                            <img class="profile__image" src="images/profile/Jak-Iv.jpg" alt="Аватарка профиля">
+                        </picture>
+                    </button>
                     <div class="profile__info">
                         <div class="profile__title-wrapper">
                             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -49,8 +52,8 @@
             <form class="popup__form" name="profile-form" novalidate>
                 <input type="text" class="popup__input" name="name" id="name" minlength="2" maxlength="40" required data-name aria-label="Введите Имя">
                 <span class="popup__input-error popup__name-error"></span>
-                <input type="text" class="popup__input" name="job" id="job" minlength="2" maxlength="200" required data-job aria-label="Введите статус">
-                <span class="popup__input-error popup__job-error"></span>
+                <input type="text" class="popup__input" name="about" id="about" minlength="2" maxlength="200" required data-about aria-label="Введите статус">
+                <span class="popup__input-error popup__about-error"></span>
                 <button type="submit" class="popup__button">Сохранить</button>
             </form>
         </div>
@@ -78,6 +81,28 @@
         </div>
     </div>
 
+    <div class="popup" id="remove-card-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
+            <form class="popup__form" name="remove-form" novalidate>
+                <button type="submit" class="popup__button">Да</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="update-avatar-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <button class="popup__close" type="button" aria-label="Закрыть попап" data-close-popup></button>
+            <form class="popup__form" name="avatar-form" novalidate>
+                <input type="url" class="popup__input" name="avatar" id="avatar" placeholder="Ссылка на картинку" aria-label="Введите ссылку на картинку" required>
+                <span class="popup__input-error popup__avatar-error"></span>
+                <button type="submit" class="popup__button">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
     <template id="card-template">
         <li class="trips__item">
             <article class="card">
@@ -90,7 +115,10 @@
                 </button>
                 <div class="card__info">
                     <h3 class="card__text"></h3>
-                    <button class="card__button"></button>
+                    <div class="card__button-wrapper">
+                        <button class="card__button"></button>
+                        <span class="card__count-like">9</span>
+                    </div>
                 </div>
                 <button class="card__trash"></button>
             </article>

@@ -1,7 +1,9 @@
 const profileForm = document.querySelector("[name=profile-form]");
 const nameInput = profileForm.querySelector("[data-name]");
-const jobInput = profileForm.querySelector("[data-job]");
+const aboutInput = profileForm.querySelector("[data-about]");
 const profilePopupOpenButton = document.querySelector("[data-popup-profile]");
+const avatarForm = document.querySelector("[name=avatar-form]");
+const updateAvatarButton = document.querySelector("[data-profile-image]");
 
 const tripForm = document.querySelector("[name=trip-form]");
 const openTripPopupButton = document.querySelector("[data-popup-trip]");
@@ -15,4 +17,4 @@ const formValidationConfig = {
     errorClass: 'popup__error_visible'
 };
 
-export {formValidationConfig, profileForm, nameInput, jobInput, profilePopupOpenButton, tripForm, openTripPopupButton}
+export {formValidationConfig, profileForm, nameInput, aboutInput, profilePopupOpenButton, tripForm, openTripPopupButton, updateAvatarButton, avatarForm}

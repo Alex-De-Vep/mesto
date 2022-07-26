@@ -8,11 +8,16 @@ export class UserInfo {
     }
 
     getUserInfo = () => {
-        return {name: this.elemntName.textContent, job: this.elementJob.textContent}
+        return {name: this.elemntName.textContent, about: this.elementJob.textContent}
+    }
+
+    setAvatar = (data) => {
+        this.image = document.querySelector(".profile__image");
+        this.image.src = data.avatar;
     }
 
     setUserInfo = (data) => {
         this.elemntName.textContent = data.name;
-        this.elementJob.textContent = data.job;
+        this.elementJob.textContent = data.about;
     }
 }

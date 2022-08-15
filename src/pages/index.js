@@ -101,11 +101,17 @@ imagePopup.setEventListeners();
 const removePopup = new RemovePopup("#remove-card-popup");
 removePopup.setEventListeners();
 
+const initTripCardList = new Section(
+    (data) => {
+        initCard(data);
+    },
+    ".trips__list",
+);
+
 const cardsApi = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-45/cards',
     headers: {
         authorization: '70a5e760-58dc-4dc4-9be2-5d986802ee28',
-
     }
 });
 cardsApi.getFetchRequest()
@@ -117,6 +123,7 @@ cardsApi.getFetchRequest()
     });
 
 const initCard = (data) => {
+    console.log(data);
     const card = new Card('#card-template', data,
         cardsApi,
         {
@@ -128,13 +135,6 @@ const initCard = (data) => {
     removePopup.setCallbackFn(card.removeCard);
     initTripCardList.addItem(cardElement);
 }
-
-const initTripCardList = new Section(
-    (data) => {
-        initCard(data);
-    },
-    ".trips__list",
-);
 
 const tripPopup = new PopupWithForm("#trip-popup", (data) => {
     cardsApi.getFetchRequestWithBody(data, 'POST')

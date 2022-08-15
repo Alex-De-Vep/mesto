@@ -5,7 +5,7 @@ export class Card {
     handleCardClick;
     handleTrashClick;
 
-    constructor(selector, data, handleCardClick) {
+    constructor(selector, data, apiCard, {handleCardClick, handleTrashClick}) {
         this.name = data.name;
         this.link = data.link;
         this.data = data;

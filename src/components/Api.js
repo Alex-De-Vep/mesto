@@ -1,87 +1,69 @@
 export default class Api {
     baseUrl;
     headers;
+    avatar;
 
     constructor({baseUrl, headers}) {
         this.baseUrl = baseUrl;
-        this.authorization = headers.authorization;
+        this.headers = headers
+    }
+
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+
+        return res.json();
     }
 
     updateAvatar(data, method) {
         return fetch(this.baseUrl, {
             method,
-            headers: {
-                authorization: this.authorization,
-            },
+            headers: this.headers,
             body: JSON.stringify(data)
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
             });
     }
 
     toggleLike(method, cardId) {
         return fetch(`${this.baseUrl}/${cardId}`, {
             method,
-            headers: {
-                authorization: this.authorization,
-            },
+            headers: this.headers,
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
             });
     }
 
     getDeleteRequest(cardId) {
         return fetch(`${this.baseUrl}/${cardId}`, {
             method: "DELETE",
-            headers: {
-                authorization: this.authorization,
-            },
+            headers: this.headers,
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
             });
     }
 
     getFetchRequestWithBody(data, method) {
         return fetch(this.baseUrl, {
             method,
-            headers: {
-                authorization: this.authorization,
-                'Content-Type': 'application/json'
-            },
+            headers: this.headers,
             body: JSON.stringify(data)
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
             });
     }
 
     getFetchRequest() {
         return fetch(this.baseUrl, {
-            headers: {
-                authorization: this.authorization,
-                'Content-Type': 'application/json'
-            }
+            headers: this.headers,
         })
             .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
             });
     }
 }

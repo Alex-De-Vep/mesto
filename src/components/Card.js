@@ -1,57 +1,28 @@
 export class Card {
     selector;
     data;
-    apiCard;
-    handleCardClick;
-    handleTrashClick;
+    userInfo;
 
-    constructor(selector, data, apiCard, {handleCardClick, handleTrashClick}) {
+    constructor(selector, data, userInfo, {handleCardClick}) {
         this.name = data.name;
         this.link = data.link;
         this.data = data;
-        this.apiCard = apiCard;
-        this.likes = data.likes ? data.likes.length : 0;
+        this.userInfo = userInfo;
         this.selector = selector;
         this._handlerCardClick = handleCardClick;
-        this._handlerTrashClick = handleTrashClick;
     }
 
     _getTemplate = () => {
         return document.querySelector(this.selector).content.cloneNode(true).querySelector('.trips__item')
     }
 
-    _handleTrashClick = () => {
-        this._handlerTrashClick();
-    }
-
     removeCard = () => {
-        this.apiCard.getDeleteRequest(this.data._id)
-            .then(() => {
-                this._itemCard.remove();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        this._itemCard.remove();
     }
 
-    _toggleLike = () => {
-        if (this.cardLike.classList.contains("card__button_active")) {
-            this.apiCard.toggleLike("DELETE", `likes/${this.data._id}`)
-                .then(() => {
-                    this.cardLike.classList.remove("card__button_active");
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } else {
-            this.apiCard.toggleLike("PUT", `likes/${this.data._id}`)
-                .then(() => {
-                    this.cardLike.classList.add("card__button_active");
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
+    toggleLike = (data) => {
+        this.likeCountElement.textContent = data.likes.length;
+        this.cardLike.classList.toggle("card__button_active");
     }
 
     createCard = () => {
@@ -69,18 +40,16 @@ export class Card {
 
         this.cardTrash = this._itemCard.querySelector(".card__trash");
         const userName = document.querySelector(".profile__title").textContent;
-        if (!this.data.owner || userName !== this.data.owner.name) {
+        if (this.data.owner._id !== this.userInfo._id) {
             this.cardTrash.classList.add("card__trash_hidden");
         }
 
-        this.cardTrash.addEventListener("click", () => {
-            this._handleTrashClick();
-        });
-
         this.cardLike = this._itemCard.querySelector(".card__button");
-        this.cardLike.addEventListener("click", this._toggleLike);
         this.likeCountElement = this._itemCard.querySelector(".card__count-like");
-        this.likeCountElement.textContent = this.likes;
+        this.likeCountElement.textContent = this.data.likes.length;
+        if (this.data.likes.find((user) => user._id === this.userInfo._id)) {
+            this.cardLike.classList.add("card__button_active");
+        }
 
         return this._itemCard;
     }

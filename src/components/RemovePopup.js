@@ -8,18 +8,16 @@ export default class RemovePopup extends Popup {
         this.form = this.elementPopup.querySelector("form");
     }
 
-    setCallbackFn = (callbackFn) => {
-        this.callbackFn = callbackFn;
-    }
-
-    setEventListeners = () => {
+    setEventSubmitListeners = (callBackFn) => {
         this.form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            this.callbackFn();
-            this.closePopup();
+            callBackFn();
         });
+    }
 
-        super.setEventListeners();
+    openPopup = () => {
+        this.setEventListeners();
+        super.openPopup();
     }
 }

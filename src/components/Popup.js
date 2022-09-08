@@ -18,11 +18,6 @@ export class Popup {
         }
     }
 
-    showPreloader = (text) => {
-        this.submitButton = this.elementPopup.querySelector(".popup__button");
-        this.submitButton.textContent = text;
-    }
-
     setEventListeners() {
         this.closeButton.addEventListener("click", this.closePopup.bind(this));
         this.elementPopup.addEventListener("click", this._closeByOverlay);

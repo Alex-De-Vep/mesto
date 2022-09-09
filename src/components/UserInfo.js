@@ -10,11 +10,18 @@ export class UserInfo {
     }
 
     setAvatar = (data) => {
-        this.elementAvatar.src = data.avatar;
+        if(data.avatar) {
+            this.elementAvatar.src = data.avatar;
+        }
     }
 
     setUserInfo = (data) => {
-        this.elemntName.textContent = data.name;
-        this.elementJob.textContent = data.about;
+        if(data.name) {
+            this.elemntName.textContent = data.name;
+        }
+
+        if (data.about) {
+            this.elementJob.textContent = data.about;
+        }
     }
 }

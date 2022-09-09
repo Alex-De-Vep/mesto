@@ -17,7 +17,7 @@ export default class Api {
     }
 
     updateAvatar(data, method) {
-        return fetch(this.baseUrl, {
+        return fetch(`${this.baseUrl}/users/me/avatar`, {
             method,
             headers: this.headers,
             body: JSON.stringify(data)
@@ -28,7 +28,7 @@ export default class Api {
     }
 
     toggleLike(method, cardId) {
-        return fetch(`${this.baseUrl}/${cardId}`, {
+        return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
             method,
             headers: this.headers,
         })
@@ -37,8 +37,8 @@ export default class Api {
             });
     }
 
-    getDeleteRequest(cardId) {
-        return fetch(`${this.baseUrl}/${cardId}`, {
+    deleteCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}`, {
             method: "DELETE",
             headers: this.headers,
         })
@@ -47,8 +47,8 @@ export default class Api {
             });
     }
 
-    getFetchRequestWithBody(data, method) {
-        return fetch(this.baseUrl, {
+    addCard(data, method) {
+        return fetch(`${this.baseUrl}/cards`, {
             method,
             headers: this.headers,
             body: JSON.stringify(data)
@@ -58,8 +58,28 @@ export default class Api {
             });
     }
 
-    getFetchRequest() {
-        return fetch(this.baseUrl, {
+    getCards() {
+        return fetch(`${this.baseUrl}/cards`, {
+            headers: this.headers,
+        })
+            .then(res => {
+                return this._getResponseData(res);
+            });
+    }
+
+    updateUserInfo(data, method) {
+        return fetch(`${this.baseUrl}/users/me`, {
+            method,
+            headers: this.headers,
+            body: JSON.stringify(data)
+        })
+            .then(res => {
+                return this._getResponseData(res);
+            });
+    }
+
+    getUserInfo() {
+        return fetch(`${this.baseUrl}/users/me`, {
             headers: this.headers,
         })
             .then(res => {

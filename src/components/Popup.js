@@ -8,27 +8,27 @@ export class Popup {
 
     _closeByEscape = (event) => {
         if (event.key === "Escape") {
-            this.closePopup();
+            this.close();
         }
     }
 
     _closeByOverlay = ({target, currentTarget}) => {
         if (target === currentTarget) {
-            this.closePopup();
+            this.close();
         }
     }
 
     setEventListeners() {
-        this.closeButton.addEventListener("click", this.closePopup.bind(this));
+        this.closeButton.addEventListener("click", this.close.bind(this));
         this.elementPopup.addEventListener("click", this._closeByOverlay);
     }
 
-    openPopup() {
+    open() {
         document.addEventListener("keyup", this._closeByEscape);
         this.elementPopup.classList.add("popup_opened");
     }
 
-    closePopup() {
+    close() {
         this.elementPopup.classList.remove("popup_opened");
         document.removeEventListener("keyup", this._closeByEscape);
     }

@@ -1,6 +1,6 @@
 import {Popup} from './Popup.js';
 
-export default class RemovePopup extends Popup {
+export default class PopupConfirm extends Popup {
     selector;
 
     constructor(selector) {
@@ -13,11 +13,6 @@ export default class RemovePopup extends Popup {
             event.preventDefault();
 
             callBackFn();
-        });
-    }
-
-    openPopup = () => {
-        this.setEventListeners();
-        super.openPopup();
+        }, {once: true});
     }
 }

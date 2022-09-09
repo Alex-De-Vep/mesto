@@ -12,14 +12,18 @@ export class Section {
     }
 
     addItem = (element) => {
+        this._container.append(element);
+    }
+
+    addItemStart = (element) => {
         this._container.prepend(element);
     }
 
-    renderItems = (items) => {
+    renderItems = (items, userInfo) => {
         this._clear();
 
         items.forEach(item => {
-            this.renderer(item);
+            this.renderer({item, userInfo});
         });
     }
 }

@@ -1,10 +1,8 @@
 export class UserInfo {
-    selectorName;
-    selectorJob;
-
-    constructor({selectorName, selectorJob}) {
+    constructor({selectorName, selectorJob, selectorAvatar}) {
         this.elemntName = document.querySelector(selectorName);
         this.elementJob = document.querySelector(selectorJob);
+        this.elementAvatar = document.querySelector(selectorAvatar);
     }
 
     getUserInfo = () => {
@@ -12,8 +10,7 @@ export class UserInfo {
     }
 
     setAvatar = (data) => {
-        this.image = document.querySelector(".profile__image");
-        this.image.src = data.avatar;
+        this.elementAvatar.src = data.avatar;
     }
 
     setUserInfo = (data) => {

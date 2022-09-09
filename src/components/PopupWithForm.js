@@ -25,9 +25,9 @@ export default class PopupWithForm extends Popup {
         this.submitButton.textContent = text;
     }
 
-    closePopup = () => {
+    close = () => {
         this.form.reset();
-        super.closePopup();
+        super.close();
     }
 
     setEventListeners = () => {

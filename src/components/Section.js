@@ -11,11 +11,11 @@ export class Section {
         this._container.innerHTML = '';
     }
 
-    addItem = (element) => {
+    appendItem = (element) => {
         this._container.append(element);
     }
 
-    addItemStart = (element) => {
+    prependItem = (element) => {
         this._container.prepend(element);
     }
 

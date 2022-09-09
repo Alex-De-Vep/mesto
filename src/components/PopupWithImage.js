@@ -16,8 +16,8 @@ export default class PopupWithImage extends Popup {
         this.title.textContent = data.name;
     }
 
-    openPopup = (data) => {
+    open = (data) => {
         this._setValueImagePopup(data);
-        super.openPopup();
+        super.open();
     }
 }

@@ -167,9 +167,9 @@ const openProfilePopup = () => {
     profileFormValidation.resetInputsErrors();
     profileFormValidation.disabledButton();
 
-    const data = userProfile.getUserInfo();
-    nameInput.value = data.name;
-    aboutInput.value = data.about;
+    const userData = userProfile.getUserInfo();
+    nameInput.value = userData.name;
+    aboutInput.value = userData.about;
 
     profilePopup.open();
 }

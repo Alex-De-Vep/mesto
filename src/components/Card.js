@@ -1,5 +1,3 @@
-import {logPlugin} from "@babel/preset-env/lib/debug";
-
 export class Card {
     selector;
     data;
